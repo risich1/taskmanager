@@ -17,7 +17,7 @@
 <script>
     import Dropdown from './UI/DropdownOptions.vue';
     import TaskForm from './TaskForm.vue';
-    
+
     export default {
         props: ['task'],
         components: {Dropdown, TaskForm},
@@ -57,6 +57,7 @@
 
     .card-title {
         cursor: pointer;
+        word-break: break-all;
     }
 
     .block-title {

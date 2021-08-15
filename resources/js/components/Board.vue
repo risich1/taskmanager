@@ -2,6 +2,9 @@
     <div id="board" class="container-fluid">
         <div class="row">
             <Column v-bind:key="column.id" :column="column" v-for="column in allСolumns"/>
+            <div class="col-md-1">
+                <AddColumn/>
+            </div>
         </div>
         <TaskForm/>
         <b-modal id="deleteModal" title="Точно удалить?">
@@ -13,6 +16,7 @@
 <script>
 import Column from './Column.vue';
 import TaskForm from './TaskForm.vue';
+import AddColumn from './addColumn.vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -21,15 +25,15 @@ export default {
     },
 
     async mounted() {
-        this.getTasks();
         this.getColumns();
+        this.getTasks();
     },
     
     methods: {
         ...mapActions(['getTasks', 'getColumns'])
     },
 
-    components: {Column, TaskForm}
+    components: {Column, TaskForm, AddColumn}
 }
 </script>
 

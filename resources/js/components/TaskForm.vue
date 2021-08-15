@@ -78,6 +78,7 @@ export default ({
         cursor: pointer;
         transition: all 0.1s;
         margin-bottom: 20px;
+        word-break: break-all;
     }
 
     form {
@@ -107,6 +108,8 @@ export default ({
         background: #fff;
     }
 
-    
+    .card-title {
+        width: calc(100% - 35px);
+    }
 
 </style>
