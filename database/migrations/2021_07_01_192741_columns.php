@@ -28,6 +28,6 @@ class Columns extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('columns');
     }
 }

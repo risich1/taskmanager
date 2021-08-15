@@ -16,10 +16,12 @@ class Tasks extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
-            $table->integer('creator_id');
-            $table->integer('board_id');
-            $table->integer('column_id');
+            $table->text('description')->nullable();
+            $table->integer('creator_id')->default(0);
+            $table->integer('board_id')->default(1);
+            $table->integer('column_id')->default(1);
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
@@ -30,6 +32,6 @@ class Tasks extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tasks');
     }
 }

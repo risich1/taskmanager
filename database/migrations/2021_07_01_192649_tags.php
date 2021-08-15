@@ -34,6 +34,7 @@ class Tags extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tags');
+        Schema::dropIfExists('tasks_tags');
     }
 }

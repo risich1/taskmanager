@@ -27,6 +27,6 @@ class Boards extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('boards');
     }
 }
