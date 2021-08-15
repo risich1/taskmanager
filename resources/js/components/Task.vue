@@ -17,6 +17,7 @@
 <script>
     import Dropdown from './UI/DropdownOptions.vue';
     import TaskForm from './TaskForm.vue';
+    
     export default {
         props: ['task'],
         components: {Dropdown, TaskForm},
@@ -46,6 +47,7 @@
 
     h5 {
         font-size: 1rem;
+        margin: 0;
     }
 
     .card-body {
@@ -53,14 +55,14 @@
         min-height: 70px;
     }
 
+    .card-title {
+        cursor: pointer;
+    }
+
     .block-title {
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
-
-    .dropdown-toggle {
-        line-height: 0;
-        padding: 5px;
+        
     }
 </style>

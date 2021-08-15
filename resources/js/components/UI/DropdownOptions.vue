@@ -1,7 +1,8 @@
 <template>
-  <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-care>
+  <b-dropdown size="lg"  variant="link" toggle-class="options-dropdown-toggle" no-caret>
     <template #button-content>
-        <i class="fas fa-ellipsis-h"></i>
+        <b-icon icon="three-dots" variant="dark"></b-icon>
+
     </template>
     <slot/>
   </b-dropdown>
@@ -13,3 +14,10 @@ export default ({
 
 })
 </script>
+
+<style>
+  .options-dropdown-toggle {
+      padding: 0!important;
+      line-height: 1!important;
+  }
+</style>

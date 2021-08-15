@@ -55,6 +55,7 @@ export default {
             console.log(result);
             if(result.status == 'success')
             {
+                ctx.commit('updateTask', data);
                 return true;
             }
 
@@ -107,6 +108,16 @@ export default {
     mutations: {
         updateTasks(state, tasks) {
             state.tasks = tasks
+        },
+
+        updateTask(state, data) {
+            const taskArr = state.tasks.filter(i => i.id === data.id);
+            const task = taskArr.pop();
+            const taskKey = [...taskArr.keys()].pop();
+
+            Object.keys(task).forEach(k => { if(data[k]) task[k] = data[k] });
+
+            state.tasks[taskKey] = task;
         },
 
         addTask(state, task) {

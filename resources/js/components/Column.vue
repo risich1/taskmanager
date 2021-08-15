@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-2">
+    <div class="col-md-2 column-wrap">
         <div class="column">
             <div class="column-title">
                 {{ column.name }} ({{ tasksByColumnId(column.id).length }} задачи)
