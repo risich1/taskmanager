@@ -35,7 +35,13 @@ class ColumnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $column = Column::create([
+            'name' => $request->post('name'),
+            'creator_id' => 1,
+            'board_id' => 1
+        ]);
+
+        return $this->jsonOutput(['status' => 'success',  'id' => $column->id]);
     }
 
     /**
@@ -69,7 +75,9 @@ class ColumnController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Column::find($id)->update($request->all());
+
+        return $this->jsonOutput(['status' => 'success']);
     }
 
     /**
@@ -80,7 +88,9 @@ class ColumnController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Column::find($id)->delete();
+
+        return $this->jsonOutput(['status' => 'success']);
     }
 
     private function jsonOutput($data, $status = 200)

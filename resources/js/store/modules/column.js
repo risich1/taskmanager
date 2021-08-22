@@ -26,12 +26,61 @@ export default {
             if(result.status == 'success')
             {
                 ctx.commit('addIdToEmptyColumn', result.id)
+                ctx.commit('updateColumn', {id: result.id, name: data.name})
                 return true;
             }
 
             ctx.commit('deleteEmptyColumn', result.id)
 
             return false;
+        },
+
+        async updateColumn(ctx, data) {
+            const res = await fetch('/api/column/' + data.id, {
+                method: 'PUT',
+                cache: 'no-cache',
+                credentials: "same-origin",
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Accept": "application/json, text-plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    // "X-CSRF-TOKEN": token
+                  },
+                body: JSON.stringify(data)
+            })
+
+            const result = await res.json()
+       
+            if(result.status == 'success')
+            {
+                ctx.commit('updateColumn', data);
+                
+                return true;
+            }
+
+            return false;
+        },
+
+        async deleteColumn(ctx, cId) {
+            const res = await fetch('/api/column/' + cId, {
+                method: 'DELETE',
+                cache: 'no-cache',
+                credentials: "same-origin",
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Accept": "application/json, text-plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    // "X-CSRF-TOKEN": token
+                  },
+                body: {}
+            })
+            
+            const result = await res.json()
+
+            if(result.status == 'success')
+                ctx.commit('deleteColumn', cId);
+
+            return true;
         }
     },
 
@@ -45,13 +94,14 @@ export default {
         },
 
         updateColumn(state, data) {
-            const taskArr = state.tasks.filter(i => i.id === data.id);
-            const task = taskArr.pop();
-            const taskKey = [...taskArr.keys()].pop();
+       
+            const colArr = state.columns.filter(i => i.id === data.id);
+            const col = colArr.pop();
+            const colKey = [...colArr.keys()].pop();
 
-            Object.keys(task).forEach(k => { if(data[k]) task[k] = data[k] });
+            Object.keys(col).forEach(k => { if(data[k]) col[k] = data[k] });
 
-            state.columns[taskKey] = task;
+            state.columns[colKey] = col;
         },
 
         addIdToEmptyColumn(state, id)
@@ -61,11 +111,17 @@ export default {
             const key = [...columnArr.keys()].pop();
 
             column.id = id;
+
             state.columns[key] = column;
+            console.log(state.columns[key]);
         },
 
         deleteEmptyColumn(state) {
             state.columns = state.columns.filter(i => i.id);
+        },
+
+        deleteColumn(state, id) {
+            state.columns = state.columns.filter(i => i.id !== id);
         }
     },
     state: {

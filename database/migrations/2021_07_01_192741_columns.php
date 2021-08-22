@@ -18,6 +18,8 @@ class Columns extends Migration
             $table->string('name');
             $table->integer('creator_id');
             $table->integer('board_id');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

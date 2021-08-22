@@ -50,6 +50,10 @@
         margin: 0;
     }
 
+    .task .card {
+        max-width: 100%;
+    }
+
     .card-body {
         padding: 12px;
         min-height: 70px;

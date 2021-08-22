@@ -1,6 +1,9 @@
 <template>
     <b-modal @show="task = getCurrentTask()" @hide="task = {}; showDescriptionForm = showNameForm = false" id="taskModal" title=""  hide-footer hide-header>
-        <h4 @click="showNameForm = true; showDescriptionForm = false" class="taskName" v-if="!showNameForm">{{ task.name }}</h4>
+
+        <EditInput @action="editName" :text="task.name" :showForm="showNameForm" placeholder="Название задачи"/>
+
+        <!-- <h4 @click="showNameForm = true; showDescriptionForm = false" class="taskName" v-if="!showNameForm">{{ task.name }}</h4>
         <b-form @submit.prevent="editName" v-if="task && showNameForm">
             <b-form-group class="editing-text">
                 <b-form-input v-model="task.name" placeholder="Название задачи"></b-form-input>
@@ -14,7 +17,7 @@
                 </div>
             </b-form-group>
 
-        </b-form>
+        </b-form> -->
         <div @click="showDescriptionForm = true; showNameForm = false" class="taskDescription" v-if="!showDescriptionForm">
             {{ task.description ? task.description : 'Введите описание..' }}
         </div>
@@ -37,7 +40,7 @@
 <script>
 
 import { mapGetters, mapActions } from 'vuex';
-
+import EditInput from './UI/EditInput.vue';
 
 export default ({
     mounted() {
@@ -57,17 +60,17 @@ export default ({
           {
               this.showDescriptionForm = false;
           }
-            
         },
-        editName() {
-          const result =  this.$store.dispatch('updateTask', {name: this.task.name, id: this.task.id});
+        editName(name) {
+          const result =  this.$store.dispatch('updateTask', {name, id: this.task.id});
           if(result)
           {
               this.showNameForm = false;
           }
         },
         ...mapGetters(['getCurrentTask'])
-    }
+    },
+    components: {EditInput}
 })
 </script>
 
