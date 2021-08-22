@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-button  v-if="!emptyColumn" @click="addEmptyColumn" class="add"> + </b-button>
+        <b-button class="add"> + </b-button>
     </div>
 </template>
 
@@ -9,33 +9,7 @@
 import { mapActions, mapMutations } from 'vuex';
 
 export default ({
-    props: ['column'],
-    data() {
-        return {
-            name: '',
-            emptyColumn: false
-        }
-    },
-    methods: {
-        addEmptyColumn() {
-            this.addColumn({});
-            this.emptyColumn = true;
-        },
-        async add(e) {
-            e.preventDefault();
-            if(this.name)
-            {
-                let status = await this.$store.dispatch('addColumn', {name: this.name});
-                if(status)
-                {
-                    this.name = ''; this.formShow = false;
-                }
-            }
-        },
 
-        // ...mapActions(['addColumn']),
-        ...mapMutations(['addColumn', 'deleteEmptyColumn'])
-    }
 })
 </script>
 

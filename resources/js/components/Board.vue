@@ -1,9 +1,9 @@
 <template>
     <div id="board" class="container-fluid">
         <div class="row">
-            <Column v-bind:key="column.id" :column="column" v-for="column in allСolumns"/>
+            <Column v-bind:key="column.id" @onCancelMake="onCanselMakeColumn" @onAdded="onAddedColumn" :column="column" v-for="column in allСolumns"/>
             <div class="col-md-1">
-                <AddColumn/>
+                <b-button v-if="!newColumn" class="add" @click="addEmptyColumn"> + </b-button>
             </div>
         </div>
         <TaskForm/>
@@ -16,12 +16,17 @@
 <script>
 import Column from './Column.vue';
 import TaskForm from './TaskForm.vue';
-import AddColumn from './addColumn.vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
     computed: {
         ...mapGetters(['allСolumns'])
+    },
+
+    data() {
+        return {
+            newColumn: false
+        }
     },
 
     async mounted() {
@@ -30,10 +35,22 @@ export default {
     },
     
     methods: {
+        onCanselMakeColumn() {
+            this.$store.commit('deleteEmptyColumn');
+            this.newColumn = false;
+        },
+        onAddedColumn() {
+            this.newColumn = false;
+        },
+        addEmptyColumn()
+        {
+            this.newColumn = true;
+            this.$store.commit('addColumn',{id: null, name: null});
+        },
         ...mapActions(['getTasks', 'getColumns'])
     },
 
-    components: {Column, TaskForm, AddColumn}
+    components: {Column, TaskForm}
 }
 </script>
 
@@ -46,5 +63,29 @@ export default {
 
     #board {
         margin-top: 20px;
+    }
+
+        .add {
+        display: block;
+        width: 100%;
+        border: 0;
+        line-height: 1;
+        font-weight: bold;
+        color: #6d6d6d;
+        padding: 8px 15px;
+        background: transparent;
+        transition: all 0.1s;
+        width: auto;
+    }
+
+    .add:hover, .add:active, .add:visited {
+        background: #e4e4e4;
+        color: #6d6d6d;
+        box-shadow: none;
+    }
+
+    .column-wrap:hover .add {
+        opacity: 1;
+        pointer-events: all;
     }
 </style>
