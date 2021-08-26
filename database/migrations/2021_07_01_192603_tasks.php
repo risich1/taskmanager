@@ -18,8 +18,7 @@ class Tasks extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('creator_id')->default(0);
-            $table->integer('board_id')->default(1);
-            $table->integer('column_id')->default(1);
+            $table->foreignId('column_id')->constrained('columns')->onDelete('cascade');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

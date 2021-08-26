@@ -26,6 +26,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
         "bootstrap-vue": "^2.21.2",
+        "vuedraggable": "^2.24.3",
         "vuex": "^3.6.2"
     }
 }

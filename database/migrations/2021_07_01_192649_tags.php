@@ -22,8 +22,8 @@ class Tags extends Migration
 
         Schema::create('tasks_tags', function (Blueprint $table) {
             $table->id();
-            $table->integer('tag_id');
-            $table->integer('task_id');
+            $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained('tags');
         });
     }
 

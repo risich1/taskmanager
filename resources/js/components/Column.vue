@@ -8,9 +8,9 @@
                         <b-dropdown-item @click="deleteColumn(column.id)">Удалить</b-dropdown-item>
                     </Dropdown>
                 </div>
-
-                <Task v-bind:key="task.id" :task="task" v-for="task in tasksByColumnId(column.id)" />
-
+                <draggable :v-model="tasksByColumnId(column.id)" draggable=".task" >
+                    <Task :key="task.id" :task="task" v-for="task in tasksByColumnId(column.id)" />  
+                </draggable>
                 <addButton :column="column.id"/>
             </template>
             <template v-if="!column.id">
@@ -28,7 +28,7 @@ import addButton from './addTask.vue';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import EditInput from './UI/EditInput.vue';
 import Dropdown from './UI/DropdownOptions.vue';
-
+import draggable from 'vuedraggable'
 
 export default {
     props: ['column'],
@@ -66,7 +66,7 @@ export default {
         ...mapMutations(['deleteEmptyColumn'])
     },
 
-    components: {Task, addButton, EditInput, Dropdown}
+    components: {Task, addButton, EditInput, Dropdown, draggable}
 }
 
 </script>

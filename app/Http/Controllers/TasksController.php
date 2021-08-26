@@ -20,7 +20,7 @@ class TasksController extends Controller
     public function destroy($id)
     {
         Task::find($id)->delete();
-
+        
         return $this->jsonOutput(['status' => 'success']);
     }
 
