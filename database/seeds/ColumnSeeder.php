@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Column;
 
+
 class ColumnSeeder extends Seeder
 {
     /**
@@ -11,23 +12,28 @@ class ColumnSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        Column::create(
+    {   
+        
+        $data = [
             [
                 'name' => 'К выполнению',
                 'board_id' => 1,
-                'creator_id' => 1 
+                'creator_id' => 1
             ],
             [
                 'name' => 'В работе',
                 'board_id' => 1,
-                'creator_id' => 1 
+                'creator_id' => 1
             ],
             [
                 'name' => 'Готово',
                 'board_id' => 1,
-                'creator_id' => 1 
+                'creator_id' => 1
             ]
-        );
+        ];
+
+        foreach($data as $item)
+            Column::create($item);
+ 
     }
 }
